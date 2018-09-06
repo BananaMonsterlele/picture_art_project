@@ -323,4 +323,53 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 
 
+	//LowetSlider
+
+		function lowerSlider(){
+			let slideIndex = 1,
+				slides = document.getElementsByClassName('feedback-slider-item'),
+				prev = document.querySelector('.main-prev-btn'),
+				next = document.querySelector('.main-next-btn'),
+				wrap = document.querySelector('.feedback-slider');
+
+			showSlides(slideIndex);
+
+			function showSlides(n){
+
+				if(n > slides.length){
+					slideIndex = 1;
+				}
+				if(n < 1) {
+					slideIndex = slides.length;
+				}
+
+				for(let i = 0; i < slides.length; i++){
+					slides[i].style.display = 'none';
+				}
+				slides[slideIndex - 1].style.display = 'block';
+			}	
+
+			function plusSlides (n) {
+				showSlides(slideIndex += n);
+			}
+
+			prev.addEventListener('click', function(){
+				plusSlides(-1);
+				// slides[slideIndex - 1].classList.add('animated', 'slideOutLeft');
+				wrap.style.cssText = `overflow: hidden`;
+			});
+			next.addEventListener('click', function(){
+				plusSlides(1);
+				// slides[slideIndex - 1].classList.add('animated', 'slideOutRight');
+				wrap.style.cssText = `overflow: hidden`;
+			});
+
+			function currentSlide (n) {
+				showSlides(slideIndex = n);
+			}
+
+		}
+		lowerSlider()
+
+
 })

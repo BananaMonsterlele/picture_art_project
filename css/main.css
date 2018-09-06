@@ -357,7 +357,7 @@ h4 {
   margin-bottom: 7rem;
 }
 .main-slider-btn {
-  position: absolute;
+  /*position: absolute;*/
   top: 50%;
   transform: translateY(-50%);
   width: 3rem;
@@ -368,6 +368,8 @@ h4 {
   background-color: transparent;
 }
 .main-slider-btn img {
+  padding-top: 20px;
+  padding-bottom: 20px;
   width: 100%;
 }
 .main-prev-btn {
@@ -839,6 +841,7 @@ h4 {
 }
 .feedback-slider-item {
   padding-bottom: 5rem;
+  height: 400px;
 }
 .feedback-block {
   position: relative;
