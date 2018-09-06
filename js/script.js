@@ -36,5 +36,53 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 	
-	
+	//ModalForDesign
+
+	let length = document.querySelectorAll('.button-design').length;
+	for(let i = 0; i < length; i++){
+		let more = document.querySelectorAll('.button-design')[i],
+		overlay = document.querySelector('.popup-design'),
+		close = document.querySelector('.popup-close'); 
+
+		more.addEventListener('click', function  () {
+			overlay.style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		});	
+		close.addEventListener('click', () => {
+			overlay.style.display = 'none';
+			document.body.style.overflow = '';
+
+		});	
+		window.addEventListener('click', function(event){
+				if(overlay.style.display == 'block' && event.target == overlay){
+				overlay.style.display = 'none';
+				document.body.style.overflow = '';
+			}
+			})
+	}
+
+	//ModalForConsultation
+
+	let length1 = document.querySelectorAll('.button-consultation').length;
+	for(let i = 0; i < length1; i++){
+		let more1 = document.querySelectorAll('.button-consultation')[i],
+		overlay1 = document.querySelector('.popup-consultation'),
+		close1 = document.querySelector('.popup-close'); 
+
+		more1.addEventListener('click', function  () {
+			overlay1.style.display = 'block';
+			document.body.style.overflow = 'hidden';
+		});	
+		close1.addEventListener('click', () => {
+			overlay1.style.display = 'none';
+			document.body.style.overflow = '';
+
+		});	
+		window.addEventListener('click', function(event){
+				if(overlay1.style.display == 'block' && event.target == overlay1){
+				overlay1.style.display = 'none';
+				document.body.style.overflow = '';
+			}
+			})
+	}	
 })
