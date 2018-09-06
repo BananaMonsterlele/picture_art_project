@@ -1080,6 +1080,19 @@ h4 {
   color: #ffffff;
   border: none;
 }
+.popup-closed {
+  position: absolute;
+  top: -5rem;
+  right: -1.5rem;
+  font-size: 5rem;
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+}
 .popup-content {
   position: fixed;
   text-align: center;
