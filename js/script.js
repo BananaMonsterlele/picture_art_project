@@ -124,7 +124,95 @@ window.addEventListener('DOMContentLoaded', () => {
 			
 
 
-	//AJAX
+	//Tabs
+	let portfolioMenu = document.getElementsByClassName('portfolio-menu')[0],
+		portfolioBtn = document.getElementsByClassName('btn'),
+		portfolioWrapper = document.querySelector('.portfolio-wrapper'),
+		portfolioBlock = document.querySelectorAll('.portfolio-block'),
+		portfolioNo = document.querySelector('.portfolio-no');
+
+	portfolioMenu.addEventListener('click', function(event){
+		if(event.target.classList.contains('all')){
+			for(let i = 0; i < portfolioBlock.length; i++){
+				if(portfolioBlock[i].classList.contains('all')){
+					portfolioBlock[i].style.display = 'block';
+				} else {
+					portfolioBlock[i].style.display = 'none';
+				}
+			}
+			for(let i = 0; i < portfolioBtn.length; i++){
+				portfolioBtn[i].classList.remove('active');
+			}
+			event.target.classList.add('active');
+		}
+		if(event.target.classList.contains('chef')){
+			for(let i = 0; i < portfolioBlock.length; i++){
+				if(portfolioBlock[i].classList.contains('chef')){
+					portfolioBlock[i].style.display = 'block';
+				} else {
+					portfolioBlock[i].style.display = 'none';
+				}
+			}
+			for(let i = 0; i < portfolioBtn.length; i++){
+				portfolioBtn[i].classList.remove('active');
+			}
+			event.target.classList.add('active');
+		}
+		if(event.target.classList.contains('girl')){
+			for(let i = 0; i < portfolioBlock.length; i++){
+				if(portfolioBlock[i].classList.contains('girl')){
+					portfolioBlock[i].style.display = 'block';
+				} else {
+					portfolioBlock[i].style.display = 'none';
+				}
+			}
+			for(let i = 0; i < portfolioBtn.length; i++){
+				portfolioBtn[i].classList.remove('active');
+			}
+			event.target.classList.add('active');
+		}
+		if(event.target.classList.contains('guy')){
+			for(let i = 0; i < portfolioBlock.length; i++){
+				if(portfolioBlock[i].classList.contains('guy')){
+					portfolioBlock[i].style.display = 'block';
+				} else {
+					portfolioBlock[i].style.display = 'none';
+				}
+			}
+			for(let i = 0; i < portfolioBtn.length; i++){
+				portfolioBtn[i].classList.remove('active');
+			}
+			event.target.classList.add('active');
+		}
+		if(event.target.classList.contains('lovers')){
+			for(let i = 0; i < portfolioBlock.length; i++){
+				if(portfolioBlock[i].classList.contains('lovers')){
+					portfolioBlock[i].style.display = 'block';
+				} else {
+					portfolioBlock[i].style.display = 'none';
+				}
+			}
+			for(let i = 0; i < portfolioBtn.length; i++){
+				portfolioBtn[i].classList.remove('active');
+			}
+			event.target.classList.add('active');
+		}
+		if(event.target.classList.contains('grandmother') || event.target.classList.contains('granddad')){
+			for(let i = 0; i < portfolioBlock.length; i++){
+				if(portfolioBlock[i].classList.contains('grandmother') || portfolioBlock[i].classList.contains('granddad')){
+					portfolioBlock[i].style.display = 'block';
+				} else {
+					portfolioBlock[i].style.display = 'none';
+					portfolioNo.style.display = 'block';
+
+				}
+			}
+			for(let i = 0; i < portfolioBtn.length; i++){
+				portfolioBtn[i].classList.remove('active');
+			}
+			event.target.classList.add('active');
+		}
+	})
 
 
 
