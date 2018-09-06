@@ -42,8 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	for(let i = 0; i < length; i++){
 		let more = document.querySelectorAll('.button-design')[i],
 		overlay = document.querySelector('.popup-design'),
-		close = document.querySelector('.popup-close'); 
-
+		close = document.querySelector('.popup-closer'); 
 		more.addEventListener('click', function  () {
 			overlay.style.display = 'block';
 			document.body.style.overflow = 'hidden';
@@ -51,7 +50,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		close.addEventListener('click', () => {
 			overlay.style.display = 'none';
 			document.body.style.overflow = '';
-
 		});	
 		window.addEventListener('click', function(event){
 				if(overlay.style.display == 'block' && event.target == overlay){
