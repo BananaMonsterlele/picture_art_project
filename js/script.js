@@ -269,11 +269,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//BurgerMenuForTablets
 
-	let burger = document.getElementsByClassName('burger')[0];
+	let burger = document.getElementsByClassName('burger-wrapper')[0],
+		burgerMenu = document.querySelector('.burger-menu');
+
+	burger.addEventListener('mouseenter', () => {
+		burgerMenu.style.display = 'block';
+	})
+	burger.addEventListener('mouseleave', () => {
+		burgerMenu.style.display = 'none';
+	})	
 
 	if(document.documentElement.clientWidth <= 768){
-		burger.addEventListener('click', function  () {
-			
+		burger.addEventListener('touchstart', function (event) {
+			burgerMenu.style.display = 'block';
+			if(event.target != burgerMenu){
+				burgerMenu.style.display = 'none';
+			}
 		})
 	}
+	window.addEventListener('resize', () => {
+		if(document.documentElement.clientWidth > 768){
+			burgerMenu.style.display = 'none';
+		}
+	})
+
 })
