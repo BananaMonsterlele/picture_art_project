@@ -253,7 +253,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			overlay1.style.display = 'block';
 			document.body.style.overflow = 'hidden';
 		
-	},2000)
+	},60000)
 
 	close1.addEventListener('click', () => {
 		overlay1.style.display = 'none';
@@ -267,4 +267,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 		})
 
+	//BurgerMenuForTablets
+
+	let burger = document.getElementsByClassName('burger')[0];
+
+	if(document.documentElement.clientWidth <= 768){
+		burger.addEventListener('click', function  () {
+			
+		})
+	}
 })
