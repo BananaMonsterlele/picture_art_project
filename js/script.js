@@ -215,6 +215,23 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 
 
+	//MouseEnterShowing
+
+	let block = document.getElementsByClassName('sizes-block'),
+		blockImg = document.getElementsByClassName('size-image'),
+		blockText = document.getElementsByClassName('sizes-bloc_text');
+
+	for(let i = 0; i < block.length; i++){
+		block[i].addEventListener('mouseenter', function(){
+			blockImg[i].setAttribute('src', `img/sizes-${i+1}-${1}.png`);
+			blockText[i].style.display = 'none';
+		})
+		block[i].addEventListener('mouseleave', function(){
+			blockImg[i].setAttribute('src', `img/sizes-${i+1}.png`);
+			blockText[i].style.display = 'block';
+		})
+	}
+
 
 
 })
