@@ -355,18 +355,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			prev.addEventListener('click', function(){
 				plusSlides(-1);
-				// slides[slideIndex - 1].classList.add('animated', 'slideOutLeft');
+				slides[slideIndex - 1].classList.add('animated', 'fade');
 				wrap.style.cssText = `overflow: hidden`;
 			});
 			next.addEventListener('click', function(){
 				plusSlides(1);
-				// slides[slideIndex - 1].classList.add('animated', 'slideOutRight');
+				slides[slideIndex - 1].classList.add('animated', 'fade');
 				wrap.style.cssText = `overflow: hidden`;
 			});
 
 			function currentSlide (n) {
 				showSlides(slideIndex = n);
 			}
+
+			let showLowerSlider = setInterval(() => {
+				showSlides(slideIndex += 1);
+			}, 7000);
 
 		}
 		lowerSlider()
