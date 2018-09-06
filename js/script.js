@@ -230,6 +230,14 @@ window.addEventListener('DOMContentLoaded', () => {
 			blockImg[i].setAttribute('src', `img/sizes-${i+1}.png`);
 			blockText[i].style.display = 'block';
 		})
+		block[i].addEventListener('touchstart', function(event){
+			blockImg[i].setAttribute('src', `img/sizes-${i+1}-${1}.png`);
+			blockText[i].style.display = 'none';
+			if(event.target != block[i]){
+				blockImg[i].setAttribute('src', `img/sizes-${i+1}.png`);
+				blockText[i].style.display = 'block';
+			}
+		})
 	}
 
 
