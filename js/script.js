@@ -395,6 +395,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		accordionTitle[i].addEventListener('click', function() {
 			accordionTitle[i].classList.add('ui-accordion-header-active');
 			if(accordionBlock[i].style.display == ''){
+				accordionBlock[i].classList.remove('animated', 'fadeInDown');
+				accordionBlock[i].classList.add('animated', 'fadeInUp');
 				accordionBlock[i].style.display = 'none';
 				accordionTitle[i].classList.remove('ui-accordion-header-active');
 			} else {
