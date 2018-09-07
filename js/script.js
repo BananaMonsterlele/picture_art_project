@@ -254,10 +254,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 	let timeout = setTimeout(function(){
-		
+		console.log(overlay)
+		if(overlay.style.display == 'block' || document.getElementsByClassName('popup-design')[0].style.display == 'block'){
+			clearInterval(timeout);
+		} else {
 			overlay1.style.display = 'block';
 			document.body.style.overflow = 'hidden';
-		
+		}	
 	},60000)
 
 	close1.addEventListener('click', () => {
