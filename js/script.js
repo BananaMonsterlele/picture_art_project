@@ -408,4 +408,70 @@ window.addEventListener('DOMContentLoaded', () => {
 		})
 	}	
 
+
+	//Calculator
+
+		let totalValue = document.getElementsByClassName('calc-price')[0],
+			size = document.querySelector('#size'),
+			material = document.querySelector('#material'),
+			options = document.querySelector('#options'),
+			promo = document.querySelector('.promocode'),
+			personSum = 0,
+			daySum = 0,
+			total = 0;
+		totalValue.innerHTML = '0';
+		
+		size.addEventListener('change', function(){
+			personSum = +this.value;
+			total =  personSum * daySum;
+			console.log(total)
+			if(material.value == '0'){
+				totalValue.innerHTML = '0';
+			} else {
+				let c = total;
+				c = c * this.value;
+				totalValue.innerHTML = c;
+			}
+			promoCode();
+	 	});
+		material.addEventListener('change', function(){
+			daySum = +this.value;
+			total =  personSum * daySum;
+			console.log(total)
+			if(size.value == '0'){
+				totalValue.innerHTML = '0';
+			} else {
+				let a = total;
+				a = a * this.value;
+				totalValue.innerHTML = a;
+			}
+			promoCode();
+		});	
+
+		options.addEventListener('change', function(){
+			total =  personSum * daySum;
+			console.log(total)
+			if(size.value == '' || material.value == ''){
+				totalValue.innerHTML = '0';
+			} else {
+				console.log(total)
+				let b = total;
+				b = b * this.value;
+				console.log(total)
+				totalValue.innerHTML = b;
+			}
+			promoCode();
+		});
+
+		function promoCode() {
+			if(promo.value == 'IWANTPOPART'){
+				totalValue.innerHTML = totalValue.innerHTML * 0.7;
+			}
+		}
+		promo.addEventListener('change', ()=>{
+			promoCode();
+		})
+
+
+
 })
