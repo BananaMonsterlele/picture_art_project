@@ -303,9 +303,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	//GiftFromTheBottom
 	// console.log(document.documentElement.offsetHeight)
 	// console.log(window.pageYOffset)
+	// console.log(document.querySelector('.footer').getBoundingClientRect().top + pageYOffset);
+	// console.log(window.pageYOffset + document.querySelector('.footer').getBoundingClientRect().top);
 
 	window.addEventListener('scroll', function scroll (){
-		if(window.pageYOffset == 13113){
+		if(window.pageYOffset + document.querySelector('.footer').getBoundingClientRect().top > document.querySelector('.footer').getBoundingClientRect().top + pageYOffset){
 			let more = document.querySelector('.fixed-gift'),
 				overlay = document.querySelector('.popup-gift'),
 				close = document.querySelector('.popup-closed'); 
@@ -381,5 +383,29 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 		lowerSlider()
 
+	//Accordion
+
+	let accordionTitle = document.querySelectorAll('.accordion-heading'),
+		accordionBlock = document.querySelectorAll('.accordion-block');
+
+
+	for(let i = 0; i < accordionTitle.length; i++){
+		accordionBlock[i].style.display = 'none';
+		accordionBlock[i].classList.add('animated', 'fadeInDown');
+		accordionTitle[i].addEventListener('click', function() {
+			accordionTitle[i].classList.add('ui-accordion-header-active');
+			if(accordionBlock[i].style.display == ''){
+				accordionBlock[i].style.display = 'none';
+				accordionTitle[i].classList.remove('ui-accordion-header-active');
+			} else {
+				for(let a = 0; a < accordionBlock.length; a++){
+					accordionBlock[a].style.display = 'none';
+					accordionTitle[a].classList.remove('ui-accordion-header-active');
+				}
+				accordionBlock[i].style.display = '';
+				accordionTitle[i].classList.add('ui-accordion-header-active');
+			}
+		})
+	}	
 
 })
