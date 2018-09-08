@@ -44,17 +44,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		overlay = document.querySelector('.popup-design'),
 		close = document.querySelector('.popup-closer'); 
 		more.addEventListener('click', function  () {
-			overlay.style.display = 'block';
-			document.body.style.overflow = 'hidden';
+			giftShow(overlay);
 		});	
 		close.addEventListener('click', () => {
-			overlay.style.display = 'none';
-			document.body.style.overflow = '';
+			giftHide(overlay);
 		});	
 		window.addEventListener('click', function(event){
 				if(overlay.style.display == 'block' && event.target == overlay){
-				overlay.style.display = 'none';
-				document.body.style.overflow = '';
+				giftHide(overlay);
 			}
 			})
 	}
@@ -63,23 +60,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	let length1 = document.querySelectorAll('.button-consultation').length;
 	for(let i = 0; i < length1; i++){
-		let more1 = document.querySelectorAll('.button-consultation')[i],
-		overlay1 = document.querySelector('.popup-consultation'),
-		close1 = document.querySelector('.popup-close'); 
+		let more = document.querySelectorAll('.button-consultation')[i],
+		overlay = document.querySelector('.popup-consultation'),
+		close = document.querySelector('.popup-close'); 
 
-		more1.addEventListener('click', function  () {
-			overlay1.style.display = 'block';
-			document.body.style.overflow = 'hidden';
+		more.addEventListener('click', function  () {
+			giftShow(overlay)
 		});	
-		close1.addEventListener('click', () => {
-			overlay1.style.display = 'none';
-			document.body.style.overflow = '';
+		close.addEventListener('click', () => {
+			giftHide(overlay)
 
 		});	
 		window.addEventListener('click', function(event){
 				if(overlay1.style.display == 'block' && event.target == overlay1){
-				overlay1.style.display = 'none';
-				document.body.style.overflow = '';
+				giftHide(overlay)
 			}
 			})
 	}	
@@ -87,23 +81,29 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//ModalForGift
 
+	function giftShow (overlay) {
+		overlay.style.display = 'block';
+		document.body.style.overflow = 'hidden';
+	}
+	function giftHide (overlay) {
+		overlay.style.display = 'none';
+		document.body.style.overflow = '';
+	}
+
 	let more = document.querySelector('.fixed-gift'),
 		overlay = document.querySelector('.popup-gift'),
 		close = document.querySelector('.popup-closed'); 
 
 	more.addEventListener('click', function  () {
-		overlay.style.display = 'block';
 		more.style.display = 'none';
-		document.body.style.overflow = 'hidden';
+		giftShow(overlay, more);
 	});	
 	close.addEventListener('click', () => {
-		overlay.style.display = 'none';
-		document.body.style.overflow = '';
+		giftHide(overlay);
 	});	
 	window.addEventListener('click', function(event){
 			if(overlay.style.display == 'block' && event.target == overlay){
-			overlay.style.display = 'none';
-			document.body.style.overflow = '';
+			giftHide();
 		}
 		})
 
@@ -391,14 +391,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	for(let i = 0; i < accordionTitle.length; i++){
 		accordionBlock[i].style.display = 'none';
-		accordionBlock[i].classList.add('animated', 'fadeInDown');
 		accordionTitle[i].addEventListener('click', function() {
 			accordionTitle[i].classList.add('ui-accordion-header-active');
 			if(accordionBlock[i].style.display == ''){
-				accordionBlock[i].classList.remove('animated', 'fadeInDown');
-				accordionBlock[i].classList.add('animated', 'fadeInUp');
 				accordionBlock[i].style.display = 'none';
 				accordionTitle[i].classList.remove('ui-accordion-header-active');
+				accordionBlock[i].classList.remove('slideInDown');
+				accordionBlock[i].classList.add('slideInUp');
 			} else {
 				for(let a = 0; a < accordionBlock.length; a++){
 					accordionBlock[a].style.display = 'none';
@@ -406,6 +405,8 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 				accordionBlock[i].style.display = '';
 				accordionTitle[i].classList.add('ui-accordion-header-active');
+				accordionBlock[i].classList.remove('slideInUp');
+				accordionBlock[i].classList.add('slideInDown');
 			}
 		})
 	}	
@@ -418,49 +419,47 @@ window.addEventListener('DOMContentLoaded', () => {
 			material = document.querySelector('#material'),
 			options = document.querySelector('#options'),
 			promo = document.querySelector('.promocode'),
-			personSum = 0,
-			daySum = 0,
+			sizeSum = 0,
+			materialSum = 0,
 			total = 0;
+
 		totalValue.innerHTML = '0';
+
+		function calc () {
+			let a = total;
+			a = a * this.value;
+			totalValue.innerHTML = a;	
+		}
 		
 		size.addEventListener('change', function(){
-			personSum = +this.value;
-			total =  personSum * daySum;
-			console.log(total)
+			sizeSum = +this.value;
+			total =  sizeSum * materialSum;
 			if(material.value == '0'){
 				totalValue.innerHTML = '0';
 			} else {
-				let c = total;
-				c = c * this.value;
-				totalValue.innerHTML = c;
+				calc.call(size);
 			}
 			promoCode();
 	 	});
+
 		material.addEventListener('change', function(){
-			daySum = +this.value;
-			total =  personSum * daySum;
-			console.log(total)
+			materialSum = +this.value;
+			total =  sizeSum * materialSum;
 			if(size.value == '0'){
 				totalValue.innerHTML = '0';
 			} else {
-				let a = total;
-				a = a * this.value;
-				totalValue.innerHTML = a;
+				calc.call(material);
 			}
 			promoCode();
 		});	
 
 		options.addEventListener('change', function(){
-			total =  personSum * daySum;
+			total =  sizeSum * materialSum;
 			console.log(total)
 			if(size.value == '' || material.value == ''){
 				totalValue.innerHTML = '0';
 			} else {
-				console.log(total)
-				let b = total;
-				b = b * this.value;
-				console.log(total)
-				totalValue.innerHTML = b;
+				calc.call(options);
 			}
 			promoCode();
 		});
@@ -470,6 +469,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				totalValue.innerHTML = totalValue.innerHTML * 0.7;
 			}
 		}
+
 		promo.addEventListener('change', ()=>{
 			promoCode();
 		})
