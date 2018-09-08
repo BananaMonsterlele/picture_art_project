@@ -129,89 +129,36 @@ window.addEventListener('DOMContentLoaded', () => {
 		portfolioBtn = document.getElementsByClassName('btn'),
 		portfolioWrapper = document.querySelector('.portfolio-wrapper'),
 		portfolioBlock = document.querySelectorAll('.portfolio-block'),
-		portfolioNo = document.querySelector('.portfolio-no');
+		portfolioNo = document.querySelector('.portfolio-no'),
+		classes = ['all', 'chef', 'guy', 'girl', 'lovers', 'grandmother', 'granddad'];
+
 
 	portfolioMenu.addEventListener('click', function(event){
-		if(event.target.classList.contains('all')){
-			for(let i = 0; i < portfolioBlock.length; i++){
-				if(portfolioBlock[i].classList.contains('all')){
-					portfolioBlock[i].style.display = 'block';
-				} else {
-					portfolioBlock[i].style.display = 'none';
+		for(let a = 0; a < classes.length; a++){
+			if(event.target.classList.contains(classes[a])){
+				for(let i = 0; i < portfolioBlock.length; i++){
+					if(portfolioBlock[i].classList.contains(classes[a])){
+						portfolioBlock[i].style.display = 'block';
+						portfolioNo.style.display = 'none';
+					} else {
+						portfolioBlock[i].style.display = 'none';
+					}
 				}
-			}
-			for(let i = 0; i < portfolioBtn.length; i++){
-				portfolioBtn[i].classList.remove('active');
-			}
-			event.target.classList.add('active');
-		}
-		if(event.target.classList.contains('chef')){
-			for(let i = 0; i < portfolioBlock.length; i++){
-				if(portfolioBlock[i].classList.contains('chef')){
-					portfolioBlock[i].style.display = 'block';
-				} else {
-					portfolioBlock[i].style.display = 'none';
+				for(let i = 0; i < portfolioBtn.length; i++){
+					portfolioBtn[i].classList.remove('active');
 				}
+				event.target.classList.add('active');
 			}
-			for(let i = 0; i < portfolioBtn.length; i++){
-				portfolioBtn[i].classList.remove('active');
-			}
-			event.target.classList.add('active');
-		}
-		if(event.target.classList.contains('girl')){
-			for(let i = 0; i < portfolioBlock.length; i++){
-				if(portfolioBlock[i].classList.contains('girl')){
-					portfolioBlock[i].style.display = 'block';
-				} else {
-					portfolioBlock[i].style.display = 'none';
+			if(event.target.classList.contains('grandmother') || event.target.classList.contains('granddad')){
+				portfolioNo.style.display = 'block';
+				console.log(11)
+				for(let i = 0; i < portfolioBtn.length; i++){
+					portfolioBtn[i].classList.remove('active');
 				}
+				event.target.classList.add('active');
 			}
-			for(let i = 0; i < portfolioBtn.length; i++){
-				portfolioBtn[i].classList.remove('active');
-			}
-			event.target.classList.add('active');
 		}
-		if(event.target.classList.contains('guy')){
-			for(let i = 0; i < portfolioBlock.length; i++){
-				if(portfolioBlock[i].classList.contains('guy')){
-					portfolioBlock[i].style.display = 'block';
-				} else {
-					portfolioBlock[i].style.display = 'none';
-				}
-			}
-			for(let i = 0; i < portfolioBtn.length; i++){
-				portfolioBtn[i].classList.remove('active');
-			}
-			event.target.classList.add('active');
-		}
-		if(event.target.classList.contains('lovers')){
-			for(let i = 0; i < portfolioBlock.length; i++){
-				if(portfolioBlock[i].classList.contains('lovers')){
-					portfolioBlock[i].style.display = 'block';
-				} else {
-					portfolioBlock[i].style.display = 'none';
-				}
-			}
-			for(let i = 0; i < portfolioBtn.length; i++){
-				portfolioBtn[i].classList.remove('active');
-			}
-			event.target.classList.add('active');
-		}
-		if(event.target.classList.contains('grandmother') || event.target.classList.contains('granddad')){
-			for(let i = 0; i < portfolioBlock.length; i++){
-				if(portfolioBlock[i].classList.contains('grandmother') || portfolioBlock[i].classList.contains('granddad')){
-					portfolioBlock[i].style.display = 'block';
-				} else {
-					portfolioBlock[i].style.display = 'none';
-					portfolioNo.style.display = 'block';
-
-				}
-			}
-			for(let i = 0; i < portfolioBtn.length; i++){
-				portfolioBtn[i].classList.remove('active');
-			}
-			event.target.classList.add('active');
-		}
+		
 	})
 
 
@@ -307,7 +254,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	// console.log(window.pageYOffset + document.querySelector('.footer').getBoundingClientRect().top);
 
 	window.addEventListener('scroll', function scroll (){
-		if(window.pageYOffset + document.querySelector('.footer').getBoundingClientRect().top > document.querySelector('.footer').getBoundingClientRect().top + pageYOffset){
+		if(window.pageYOffset + 1000 > document.documentElement.scrollHeight){
+			console.log("Yra bluya")
 			let more = document.querySelector('.fixed-gift'),
 				overlay = document.querySelector('.popup-gift'),
 				close = document.querySelector('.popup-closed'); 
@@ -328,7 +276,23 @@ window.addEventListener('DOMContentLoaded', () => {
 		if(overlay.style.display == 'block'){
 			window.removeEventListener('scroll', scroll)
 		}
+
 	})
+	// function getCoords(elem) { 
+	//   let box = elem.getBoundingClientRect();
+
+	//   return {
+	//     top: box.top + pageYOffset,
+	//     left: box.left + pageXOffset
+	//   };
+
+	// }
+	// console.log(getCoords(document.querySelector('.footer')));
+	
+	// window.addEventListener('scroll', function scroll (){
+	// 	console.log(window.pageYOffset);
+	// 	console.log(document.documentElement.scrollHeight)
+	// })
 
 
 	//LowetSlider
@@ -428,7 +392,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		function calc () {
 			let a = total;
 			a = a * this.value;
-			totalValue.innerHTML = a;	
+			totalValue.innerHTML = total;	
 		}
 		
 		size.addEventListener('change', function(){
@@ -459,7 +423,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			if(size.value == '' || material.value == ''){
 				totalValue.innerHTML = '0';
 			} else {
-				calc.call(options);
+				let a = total;
+				a = a * this.value;
+				totalValue.innerHTML = a;	
 			}
 			promoCode();
 		});
@@ -475,5 +441,67 @@ window.addEventListener('DOMContentLoaded', () => {
 		})
 
 
+	// AJAX
 
+	let message = {},
+		formArr = document.getElementsByClassName('main-form');
+	message.loading = 'Загрузка...';
+	message.success = 'Спасибо, скоро мы с вами свяжемся';
+	message.failure = 'Что-то пошло не так...';
+
+
+	for(let y = 0; y < formArr.length; y++){
+		let	form = formArr[y],
+			input = form.getElementsByTagName('input'),
+			statusMessage = document.createElement('div');
+
+		statusMessage.classList.add('status');
+
+		
+		form.addEventListener('submit', function(event){
+			event.preventDefault();
+			form.appendChild(statusMessage);
+
+			// AJAX
+
+			let formData = new FormData(form);
+
+					let request = new XMLHttpRequest();
+
+					request.open("POST", "../server.php");
+					request.setRequestHeader("Content-Type", "application/x-www-form-urlendcoded");
+
+					request.onreadystatechange = function(){
+						if (request.readyState < 4){
+							statusMessage.innerHTML = message.loading
+						} else if(request.readyState === 4){
+							if(request.status == 200 && request.status < 300){
+								// Добавляем контент на страницу
+								statusMessage.innerHTML = '<img src="img/success.png" alt="Success">';
+								statusMessage.style.cssText = 'text-align: center; margin-top: 15px';
+								setInterval(function(){
+									statusMessage.style.cssText = 'display:none';
+								}, 1000);
+							}
+							else {
+								statusMessage.innerHTML = '<img src="img/failed.png" alt="Failed">';
+								statusMessage.style.cssText = 'text-align: center; margin-top: 15px';
+							}
+						}
+					};
+
+					request.send(formData);
+					clearInput();
+			// 	})
+			// }
+
+			function clearInput(){
+				for(let i = 0; i < input.length; i++){
+					input[i].value = '';
+					// Очищаем поля ввода
+				}
+			}
+
+		});	
+	}	
 })
