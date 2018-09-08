@@ -151,7 +151,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 			if(event.target.classList.contains('grandmother') || event.target.classList.contains('granddad')){
 				portfolioNo.style.display = 'block';
-				console.log(11)
 				for(let i = 0; i < portfolioBtn.length; i++){
 					portfolioBtn[i].classList.remove('active');
 				}
@@ -255,7 +254,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	window.addEventListener('scroll', function scroll (){
 		if(window.pageYOffset + 1000 > document.documentElement.scrollHeight){
-			console.log("Yra bluya")
 			let more = document.querySelector('.fixed-gift'),
 				overlay = document.querySelector('.popup-gift'),
 				close = document.querySelector('.popup-closed'); 
