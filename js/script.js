@@ -323,13 +323,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			prev.addEventListener('click', function(){
 				plusSlides(-1);
-				slides[slideIndex - 1].classList.add('animated', 'fade');
-				wrap.style.cssText = `overflow: hidden`;
+				slides[slideIndex - 1].classList.add('animated', 'fadeInRight');
+				document.getElementsByTagName('body')[0].style.cssText = `overflow-x: hidden`;
 			});
 			next.addEventListener('click', function(){
 				plusSlides(1);
-				slides[slideIndex - 1].classList.add('animated', 'fade');
-				wrap.style.cssText = `overflow: hidden`;
+				slides[slideIndex - 1].classList.add('animated', 'fadeInLeft');
+				document.getElementsByTagName('body')[0].style.cssText = `overflow-x: hidden`;
 			});
 
 			function currentSlide (n) {
@@ -525,18 +525,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		let	form = formArr[y],
 			input = form.getElementsByTagName('input'),
 			statusMessage = document.createElement('div');
-			// console.log(input)
 
-		// statusMessage.classList.add('status');
-
-		// form.children.forEach(function(element) {
-		//   console.log(element);
-		// });
-		
 		form.addEventListener('submit', function(event){
 			event.preventDefault();
-			// document.querySelector('.form-wrapper').append(statusMessage);
-			console.log(this.children)
 
 
 			let formData = new FormData(form);
