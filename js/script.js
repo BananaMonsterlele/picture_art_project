@@ -200,7 +200,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 	let timeout = setTimeout(function(){
-		console.log(overlay)
 		if(overlay.style.display == 'block' || document.getElementsByClassName('popup-design')[0].style.display == 'block'){
 			clearInterval(timeout);
 		} else {
@@ -226,8 +225,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	let burger = document.getElementsByClassName('burger-wrapper')[0],
 		burgerMenu = document.querySelector('.burger-menu');
 
+	document.querySelector('.burger').style.display = 'none';
 		
 	if(document.documentElement.clientWidth <= 768){
+		document.querySelector('.burger').style.display = '';
 		burger.addEventListener('touchstart', function (event) {
 			if(burgerMenu.style.display == 'block'){
 				burgerMenu.style.display = 'none';
@@ -247,10 +248,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 	//GiftFromTheBottom
-	// console.log(document.documentElement.offsetHeight)
-	// console.log(window.pageYOffset)
-	// console.log(document.querySelector('.footer').getBoundingClientRect().top + pageYOffset);
-	// console.log(window.pageYOffset + document.querySelector('.footer').getBoundingClientRect().top);
+
 
 	window.addEventListener('scroll', function scroll (){
 		if(window.pageYOffset + 1000 > document.documentElement.scrollHeight){
@@ -359,7 +357,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				accordionBlock[i].style.display = 'none';
 				accordionTitle[i].classList.remove('ui-accordion-header-active');
 				accordionBlock[i].classList.remove('slideInDown');
-				accordionBlock[i].classList.add('slideInUp');
+				accordionBlock[i].classList.add('slideOutUp');
 			} else {
 				for(let a = 0; a < accordionBlock.length; a++){
 					accordionBlock[a].style.display = 'none';
@@ -367,8 +365,17 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 				accordionBlock[i].style.display = '';
 				accordionTitle[i].classList.add('ui-accordion-header-active');
-				accordionBlock[i].classList.remove('slideInUp');
+				accordionBlock[i].classList.remove('slideOutUp');
 				accordionBlock[i].classList.add('slideInDown');
+			}
+			if(accordionTitle[i].classList.contains('ui-accordion-header-active') && accordionBlock[i].style.display == ''){
+				// accordionBlock[i].classList.add('slideOutUp');
+				accordionBlock[i].classList.remove('slideOutUp');
+				console.log(1)
+			} else {
+				// accordionBlock[i].classList.remove('slideOutUp');
+				accordionBlock[i].classList.add('slideOutUp');
+				console.log(0)
 			}
 		})
 	}	
@@ -438,35 +445,102 @@ window.addEventListener('DOMContentLoaded', () => {
 			promoCode();
 		})
 
+	// MascForTelInput
+		function telMasc () {
+			
+		    function setCursorPosition(pos, elem) {
+		        elem.focus();
+		        if (elem.setSelectionRange) elem.setSelectionRange(pos, pos);
+		        else if (elem.createTextRange) {
+		            let range = elem.createTextRange();
+		            range.collapse(true);
+		            range.moveEnd("character", pos);
+		            range.moveStart("character", pos);
+		            range.select()
+		        }
+		    }
+
+		    function mask(event) {
+		        let matrix = "+7 (___) ___ ____",
+		            i = 0,
+		            def = matrix.replace(/\D/g, ""),
+		            val = this.value.replace(/\D/g, "");
+		        if (def.length >= val.length) val = def;
+		        this.value = matrix.replace(/./g, function(a) {
+		            return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+		        });
+		        if (event.type == "blur") {
+		            if (this.value.length == 2) this.value = ""
+		        } else setCursorPosition(this.value.length, this)
+		    };
+		    	let input = document.querySelectorAll(".phone-input"); // Получает инпут
+		            for(let i = 0; i < input.length; i++){
+		            	input[i].addEventListener('focus', function(){
+		            		this.value = "+7(___)___-____"
+		            		this.setAttribute('placeholder', '')
+		            	})
+		            	input[i].addEventListener("input", mask, false) 
+		            	input[i].addEventListener("focus", mask, false);
+		            	input[i].addEventListener("blur", mask, false);
+		            } // Создает ивент
+		}
+		telMasc()
+
+	//RussianOnly
+	function setValidator(id, regex) {
+	  let element = id;
+	  if (element) {
+	    let lastValue = element.value;
+	    if (!regex.test(lastValue))
+	      lastValue = '';
+	    setInterval(function() {
+	      let value = element.value;
+	      if (value != lastValue) {
+	        if (regex.test(value))
+	          lastValue = value;
+	        else
+	          element.value = lastValue;
+	      }
+	    }, 10);
+	  }
+	}
+	textInput = document.querySelectorAll('.text-input');
+	
+	for(let i = 0; i < textInput.length; i++ ){
+		setValidator(textInput[i], /^[а-яА-я-]*$/)
+	}
 
 	// AJAX
 
 	let message = {},
 		formArr = document.getElementsByClassName('main-form');
+
 	message.loading = 'Загрузка...';
 	message.success = 'Спасибо, скоро мы с вами свяжемся';
 	message.failure = 'Что-то пошло не так...';
+	console.log(formArr);
 
 
 	for(let y = 0; y < formArr.length; y++){
 		let	form = formArr[y],
 			input = form.getElementsByTagName('input'),
 			statusMessage = document.createElement('div');
+			// console.log(input)
 
-		statusMessage.classList.add('status');
+		// statusMessage.classList.add('status');
 
+		console.log(form)
 		
 		form.addEventListener('submit', function(event){
 			event.preventDefault();
-			form.appendChild(statusMessage);
+			document.querySelector('.form-wrapper').append(statusMessage);
 
-			// AJAX
 
 			let formData = new FormData(form);
 
 					let request = new XMLHttpRequest();
 
-					request.open("POST", "../server.php");
+					request.open("POST", "");
 					request.setRequestHeader("Content-Type", "application/x-www-form-urlendcoded");
 
 					request.onreadystatechange = function(){
@@ -475,23 +549,34 @@ window.addEventListener('DOMContentLoaded', () => {
 						} else if(request.readyState === 4){
 							if(request.status == 200 && request.status < 300){
 								// Добавляем контент на страницу
-								statusMessage.innerHTML = '<img src="img/success.png" alt="Success">';
-								statusMessage.style.cssText = 'text-align: center; margin-top: 15px';
-								setInterval(function(){
-									statusMessage.style.cssText = 'display:none';
-								}, 1000);
+								if(form.classList.contains('main-form-lower')){
+									form.style.display = 'none';
+									statusMessage.innerHTML = message.success;
+									// statusMessage.innerHTML = '<img src="img/success.png" alt="Success">';
+									statusMessage.style.cssText = 'text-align: center; margin-top: 15px; font-size: 30px;';
+								} else {
+									form.innerHTML = message.success
+								}
+								
 							}
 							else {
-								statusMessage.innerHTML = '<img src="img/failed.png" alt="Failed">';
-								statusMessage.style.cssText = 'text-align: center; margin-top: 15px';
+								if(form.classList.contains('main-form-lower')){
+									form.style.display = 'none';
+									statusMessage.innerHTML = '<img src="img/failed.png" alt="Failed">';
+									statusMessage.innerHTML = message.failure;
+									statusMessage.style.cssText = 'text-align: center; margin-top: 15px; font-size: 30px;';
+								} else {
+										form.innerHTML = message.failure
+								}
 							}
 						}
+						// setTimeout(function(){
+						// 	statusMessage.style.cssText = 'display:none';
+						// 	form.style.display = '';
+						// }, 3000);
 					};
-
 					request.send(formData);
 					clearInput();
-			// 	})
-			// }
 
 			function clearInput(){
 				for(let i = 0; i < input.length; i++){
@@ -502,4 +587,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		});	
 	}	
+	
 })

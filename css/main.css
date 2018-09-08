@@ -357,7 +357,7 @@ h4 {
   margin-bottom: 7rem;
 }
 .main-slider-btn {
-  /*position: absolute;*/
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 3rem;
