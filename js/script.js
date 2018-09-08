@@ -518,7 +518,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	message.loading = 'Загрузка...';
 	message.success = 'Спасибо, скоро мы с вами свяжемся';
 	message.failure = 'Что-то пошло не так...';
-	console.log(formArr);
+
 
 
 	for(let y = 0; y < formArr.length; y++){
@@ -529,11 +529,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		// statusMessage.classList.add('status');
 
-		console.log(form)
+		// form.children.forEach(function(element) {
+		//   console.log(element);
+		// });
 		
 		form.addEventListener('submit', function(event){
 			event.preventDefault();
-			document.querySelector('.form-wrapper').append(statusMessage);
+			// document.querySelector('.form-wrapper').append(statusMessage);
+			console.log(this.children)
 
 
 			let formData = new FormData(form);
@@ -555,7 +558,11 @@ window.addEventListener('DOMContentLoaded', () => {
 									// statusMessage.innerHTML = '<img src="img/success.png" alt="Success">';
 									statusMessage.style.cssText = 'text-align: center; margin-top: 15px; font-size: 30px;';
 								} else {
-									form.innerHTML = message.success
+									statusMessage.innerHTML = message.success;
+									for(let a = 0; a < form.children.length; a++){
+										form.children[a].style.display = 'none';
+									}
+									form.appendChild(statusMessage);
 								}
 								
 							}
@@ -566,14 +573,20 @@ window.addEventListener('DOMContentLoaded', () => {
 									statusMessage.innerHTML = message.failure;
 									statusMessage.style.cssText = 'text-align: center; margin-top: 15px; font-size: 30px;';
 								} else {
-										form.innerHTML = message.failure
+									statusMessage.innerHTML = message.failure;
+									for(let a = 0; a < form.children.length; a++){
+										form.children[a].style.display = 'none';
+									}
+									form.appendChild(statusMessage);
 								}
 							}
 						}
-						// setTimeout(function(){
-						// 	statusMessage.style.cssText = 'display:none';
-						// 	form.style.display = '';
-						// }, 3000);
+						setTimeout(function(){
+							for(let a = 0; a < form.children.length; a++){
+								form.children[a].style.display = '';
+							}
+							statusMessage.style.display = 'none'
+						}, 3000);
 					};
 					request.send(formData);
 					clearInput();
