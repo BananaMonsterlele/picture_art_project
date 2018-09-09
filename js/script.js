@@ -249,26 +249,39 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//GiftFromTheBottom
 
+	let buttonCounter = 0,
+		buttonArr = document.getElementsByTagName('button');
+
+	for(let i = 0; i < buttonArr.length; i++){
+		buttonArr[i].addEventListener('click', () => {
+			buttonCounter++;
+			console.log(buttonCounter)
+		})
+	}
 
 	window.addEventListener('scroll', function scroll (){
-		if(window.pageYOffset + 1000 > document.documentElement.scrollHeight){
-			let more = document.querySelector('.fixed-gift'),
-				overlay = document.querySelector('.popup-gift'),
-				close = document.querySelector('.popup-closed'); 
-				overlay.style.display = 'block';
-				more.style.display = 'none';
-				document.body.style.overflow = 'hidden';
-			close.addEventListener('click', () => {
-				overlay.style.display = 'none';
-				document.body.style.overflow = '';
-			});	
-			window.addEventListener('click', function(event){
-					if(overlay.style.display == 'block' && event.target == overlay){
-					overlay.style.display = 'none';
-					document.body.style.overflow = '';
-				}
-				})
-		}	
+		if(buttonCounter == 0){
+			if(document.documentElement.scrollHeight - document.documentElement.scrollTop === document.documentElement.clientHeight){
+					let more = document.querySelector('.fixed-gift'),
+						overlay = document.querySelector('.popup-gift'),
+						close = document.querySelector('.popup-closed'); 
+						overlay.style.display = 'block';
+						more.style.display = 'none';
+						document.body.style.overflow = 'hidden';
+					close.addEventListener('click', () => {
+						overlay.style.display = 'none';
+						document.body.style.overflow = '';
+					});	
+					window.addEventListener('click', function(event){
+							if(overlay.style.display == 'block' && event.target == overlay){
+							overlay.style.display = 'none';
+							document.body.style.overflow = '';
+						}
+					})	
+			}
+		}
+			
+
 		if(overlay.style.display == 'block'){
 			window.removeEventListener('scroll', scroll)
 		}
@@ -284,6 +297,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// }
 	// console.log(getCoords(document.querySelector('.footer')));
+	// console.log(window.pageYOffset);
 	
 	// window.addEventListener('scroll', function scroll (){
 	// 	console.log(window.pageYOffset);
@@ -353,30 +367,31 @@ window.addEventListener('DOMContentLoaded', () => {
 		accordionBlock[i].style.display = 'none';
 		accordionTitle[i].addEventListener('click', function() {
 			accordionTitle[i].classList.add('ui-accordion-header-active');
-			if(accordionBlock[i].style.display == ''){
+			accordionBlock[i].classList.add('slideInDown');
+			if(accordionBlock[i].style.display == 'block'){
 				accordionBlock[i].style.display = 'none';
 				accordionTitle[i].classList.remove('ui-accordion-header-active');
-				accordionBlock[i].classList.remove('slideInDown');
-				accordionBlock[i].classList.add('slideOutUp');
+				// accordionBlock[i].classList.remove('slideInDown');
+				// accordionBlock[i].classList.add('slideInUp');
 			} else {
 				for(let a = 0; a < accordionBlock.length; a++){
 					accordionBlock[a].style.display = 'none';
 					accordionTitle[a].classList.remove('ui-accordion-header-active');
 				}
-				accordionBlock[i].style.display = '';
+				accordionBlock[i].style.display = 'block';
 				accordionTitle[i].classList.add('ui-accordion-header-active');
-				accordionBlock[i].classList.remove('slideOutUp');
-				accordionBlock[i].classList.add('slideInDown');
-			}
-			if(accordionTitle[i].classList.contains('ui-accordion-header-active') && accordionBlock[i].style.display == ''){
-				// accordionBlock[i].classList.add('slideOutUp');
-				accordionBlock[i].classList.remove('slideOutUp');
-				console.log(1)
-			} else {
 				// accordionBlock[i].classList.remove('slideOutUp');
-				accordionBlock[i].classList.add('slideOutUp');
-				console.log(0)
+				// accordionBlock[i].classList.add('slideInDown');
 			}
+			// if(accordionTitle[i].classList.contains('ui-accordion-header-active') && accordionBlock[i].style.display == ''){
+			// 	// accordionBlock[i].classList.add('slideOutUp');
+			// 	// accordionBlock[i].classList.remove('slideOutUp');
+			// 	console.log(1)
+			// } else {
+			// 	// accordionBlock[i].classList.remove('slideOutUp');
+			// 	// accordionBlock[i].classList.add('slideOutUp');
+			// 	console.log(0)
+			// }
 		})
 	}	
 
