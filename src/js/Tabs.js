@@ -1,38 +1,51 @@
 function Tabs () {
-	let portfolioMenu = document.getElementsByClassName('portfolio-menu')[0],
-		portfolioBtn = document.getElementsByClassName('btn'),
+	
+	let portfolioMenu = document.querySelector('.portfolio-menu'),
 		portfolioWrapper = document.querySelector('.portfolio-wrapper'),
-		portfolioBlock = document.querySelectorAll('.portfolio-block'),
-		portfolioNo = document.querySelector('.portfolio-no'),
-		classes = ['all', 'chef', 'guy', 'girl', 'lovers', 'grandmother', 'granddad'];
+		portfolioNo = document.querySelector('.portfolio-no');
 
+		portfolioMenu.addEventListener('click', function(event){
+			if (event.target && event.target.classList.contains('btn')) {
+				for (let i = 0; i < this.childNodes.length; i++) {
+	        		let childMenu = this.childNodes[i];
 
-	portfolioMenu.addEventListener('click', function(event){
-		for(let a = 0; a < classes.length; a++){
-			if(event.target.classList.contains(classes[a])){
-				for(let i = 0; i < portfolioBlock.length; i++){
-					if(portfolioBlock[i].classList.contains(classes[a])){
-						portfolioBlock[i].style.display = 'block';
-						portfolioNo.style.display = 'none';
-					} else {
-						portfolioBlock[i].style.display = 'none';
-					}
-				}
-				for(let i = 0; i < portfolioBtn.length; i++){
-					portfolioBtn[i].classList.remove('active');
-				}
+	        		if(childMenu.className) {
+	            		childMenu.className = childMenu.className.replace( /(?:^|\s)active(?!\S)/, '' );
+	        		}
+	    		}
 				event.target.classList.add('active');
 			}
-			if(event.target.classList.contains('grandmother') || event.target.classList.contains('granddad')){
-				portfolioNo.style.display = 'block';
-				for(let i = 0; i < portfolioBtn.length; i++){
-					portfolioBtn[i].classList.remove('active');
+
+			if (!event.target.classList.contains('all')) {
+				for (let i = 0; i < portfolioWrapper.childNodes.length; i++) {
+					let childWrapper = portfolioWrapper.childNodes[i];
+
+					if (childWrapper.className == undefined) continue;
+
+			        if (`${childWrapper.className.match(/^\S+\s/)}` == `${event.target.className.match(/^\S+\s/)}`) {
+			        	childWrapper.className = childWrapper.className.replace( /(?:^|\s)portfolio-no(?!\S)/, ' portfolio-block' );
+			        } else {
+			           childWrapper.className = childWrapper.className.replace( /(?:^|\s)portfolio-block(?!\S)/, ' portfolio-no' );
+			        }	    	
 				}
-				event.target.classList.add('active');
+
+		        if (document.querySelectorAll('.portfolio-block').length == 0) {
+		        	portfolioNo.style.display = 'block';
+		        } else {
+		        	portfolioNo.style.display = 'none';
+		        }
+			} else {
+				for (let i = 0; i < portfolioWrapper.childNodes.length; i++) {
+	        		let childWrapper = portfolioWrapper.childNodes[i];
+
+	        		if (childWrapper.className == undefined) continue;
+					childWrapper.className = childWrapper.className.replace( /(?:^|\s)portfolio-no(?!\S)/, ' portfolio-block' );
+					portfolioNo.style.display = 'none';
+				}
 			}
-		}
-		
-	})
+
+
+		});
 }
 
 

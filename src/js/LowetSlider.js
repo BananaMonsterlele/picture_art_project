@@ -3,8 +3,7 @@ function LowetSlider () {
 		let slideIndex = 1,
 			slides = document.getElementsByClassName('feedback-slider-item'),
 			prev = document.querySelector('.main-prev-btn'),
-			next = document.querySelector('.main-next-btn'),
-			wrap = document.querySelector('.feedback-slider');
+			next = document.querySelector('.main-next-btn');
 
 		showSlides(slideIndex);
 
