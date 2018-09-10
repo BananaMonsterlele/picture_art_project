@@ -11,37 +11,40 @@ function Calculator () {
 		totalValue.innerHTML = '0';
 
 		function calc () {
-			let a = total;
-			a = a * this.value;
-			totalValue.innerHTML = total;	
+			this.Sum = +this.value;
+			total =  +this.Sum;
+			// if(material.value == '0'){
+			// 	totalValue.innerHTML = '0';
+			// 	console.log(11111)ж
+			// } else {
+				let a = total;
+				a = a * this.value;
+				totalValue.innerHTML = total;	
+			// }
+			promoCode();
+			
 		}
 		
 		size.addEventListener('change', function(){
-			sizeSum = +this.value;
-			total =  sizeSum * materialSum;
+			calc.call(size);
 			if(material.value == '0'){
 				totalValue.innerHTML = '0';
-			} else {
-				calc.call(size);
 			}
-			promoCode();
 	 	});
 
 		material.addEventListener('change', function(){
-			materialSum = +this.value;
-			total =  sizeSum * materialSum;
+			calc.call(material);
 			if(size.value == '0'){
 				totalValue.innerHTML = '0';
-			} else {
-				calc.call(material);
 			}
-			promoCode();
 		});	
 
 		options.addEventListener('change', function(){
-			total =  sizeSum * materialSum;
-			if(size.value == '' || material.value == ''){
+			// total =  sizeSum * materialSum;
+			if(size.value == 0 || material.value == 0){
 				totalValue.innerHTML = '0';
+				alert('Сначала выберете размер и материал и заново выберете доп услугу');
+				this.value = '' ;
 			} else {
 				let a = total;
 				a = a * this.value;
