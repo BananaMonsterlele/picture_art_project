@@ -42,6 +42,10 @@ function LowetSlider () {
 		}
 
 		let showLowerSlider = setInterval(() => {
+			for(let i = 0; i < slides.length; i++){
+				slides[i].classList.remove('fadeInLeft', 'fadeInRight');
+				// slides[slideIndex - 1].classList.add('pulse');
+			}
 			showSlides(slideIndex += 1);
 		}, 7000);
 
