@@ -4,17 +4,21 @@ function BurgerMenuForTablets () {
 
 	document.querySelector('.burger').style.display = 'none';
 		
-	if(document.documentElement.clientWidth <= 768){
-		document.querySelector('.burger').style.display = '';
-		burger.addEventListener('touchstart', function (event) {
-			if(burgerMenu.style.display == 'block'){
-				burgerMenu.style.display = 'none';
-			} else {
-				burgerMenu.style.display = 'block';
-			}
-		})
-	} 
+	function burgerMenuFunc(){
+		if(document.documentElement.clientWidth <= 768){
+			document.querySelector('.burger').style.display = '';
+			burger.addEventListener('touchstart', function (event) {
+				if(burgerMenu.style.display == 'block'){
+					burgerMenu.style.display = 'none';
+				} else {
+					burgerMenu.style.display = 'block';
+				}
+			})
+		} 
+	}
+	burgerMenuFunc();
 	window.addEventListener('resize', () => {
+		burgerMenuFunc();
 		if(document.documentElement.clientWidth > 768){
 			burgerMenu.style.display = 'none';
 			burger.style.display = 'none';
